@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Jwatcha",
+    "slug": "Jwatcha",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "Jwatcha"
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "880630149568",
+    "project_id": "jwatcha-2e9ed",
+    "storage_bucket": "jwatcha-2e9ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880630149568:android:9eab792795adae5e915825",
+        "android_client_info": {
+          "package_name": "com.jwatcha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880630149568-mpu9qpir62im2tbembavh016o4oh78hi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTWj4xH-a778d8PuWvf3Xuao-q1CJXABc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880630149568-mpu9qpir62im2tbembavh016o4oh78hi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
