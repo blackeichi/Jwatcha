@@ -25,7 +25,7 @@ const OutNav = () => {
             <TouchableOpacity>
               <Text
                 style={{
-                  fontSize: 17,
+                  fontSize: 14,
                   fontWeight: "800",
                   color: "white",
                 }}
@@ -36,13 +36,11 @@ const OutNav = () => {
           ),
           headerStyle: {
             backgroundColor: scrollY > 20 ? "black" : "transparent",
-            position: "absolute",
-            top: 0,
           },
           headerTransparent: true,
           headerTitleStyle: {
             fontWeight: "800",
-            fontSize: 26,
+            fontSize: 24,
           },
           headerTintColor: Theme.pinkColor,
         }}
