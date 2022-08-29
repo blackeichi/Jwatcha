@@ -1,18 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useScroll } from "framer-motion";
 import React, { useEffect } from "react";
 import { Text } from "react-native";
 import Begin from "../screens/Begin";
 
 const Nav = createNativeStackNavigator();
 const OutNav = () => {
-  const { scrollY } = useScroll();
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      console.log(latest);
-    });
-  });
   return (
     <Nav.Navigator screenOptions={{ presentation: "modal" }}>
       <Nav.Screen
