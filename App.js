@@ -3,6 +3,7 @@ import auth from "@react-native-firebase/auth";
 import { NavigationContainer } from "@react-navigation/native";
 import OutNav from "./navigators/OutNav";
 import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "react-query";
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
@@ -12,14 +13,17 @@ export default function App() {
       } else {
         setLoggedIn(false);
       }
-      console.log(isLoggedIn);
+      console.log("Log In : ", isLoggedIn);
     });
   }, []);
+  const queryClient = new QueryClient();
   return (
-    <RecoilRoot>
-      <NavigationContainer>
-        {isLoggedIn ? null : <OutNav />}
-      </NavigationContainer>
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <NavigationContainer>
+          {isLoggedIn ? null : <OutNav />}
+        </NavigationContainer>
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }

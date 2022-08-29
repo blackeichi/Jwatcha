@@ -1,27 +1,30 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import styled from "styled-components/native";
+import { scrolled } from "../atom";
+import { useSetRecoilState } from "recoil";
+import { moviesApi } from "../api";
+import { useQuery } from "react-query";
+import { Slide } from "../components/Slide";
 
-const Header = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 15px;
+const TextView = styled.View`
+  width: 100px;
+  height: 200px;
+  background-color: tomato;
 `;
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: 800;
-`;
-const LoginBtn = styled.Text``;
 
-const Begin = () => (
-  <>
-    <Header>
-      <Title>Watcha</Title>
-      <LoginBtn>로그인</LoginBtn>
-    </Header>
-  </>
-);
+const Begin = () => {
+  const { isLoading, data } = useQuery("PopMovies", moviesApi.PopMovies);
+  //데이터끊기
+  const setScrollY = useSetRecoilState(scrolled);
+  const handleScroll = (event) => {
+    setScrollY(event.nativeEvent.contentOffset.y);
+  };
+  return (
+    <ScrollView onScroll={handleScroll}>
+      <Slide Image={data} />
+    </ScrollView>
+  );
+};
 
 export default Begin;
