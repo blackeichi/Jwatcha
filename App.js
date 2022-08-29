@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import auth from "@react-native-firebase/auth";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
 import OutNav from "./navigators/OutNav";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Theme } from "./styled";
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
@@ -20,9 +21,11 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
-        <NavigationContainer>
-          {isLoggedIn ? null : <OutNav />}
-        </NavigationContainer>
+        <ThemeProvider theme={Theme}>
+          <NavigationContainer>
+            {isLoggedIn ? null : <OutNav />}
+          </NavigationContainer>
+        </ThemeProvider>
       </RecoilRoot>
     </QueryClientProvider>
   );
