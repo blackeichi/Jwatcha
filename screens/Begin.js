@@ -5,24 +5,32 @@ import { scrolled } from "../atom";
 import { useSetRecoilState } from "recoil";
 import { moviesApi } from "../api";
 import { useQuery } from "react-query";
-import { Slide } from "../components/Slide";
+import { makeImgPath } from "../utils";
 
 const TextView = styled.View`
   width: 100px;
   height: 200px;
   background-color: tomato;
 `;
+const BgImg = styled.Image``;
 
 const Begin = () => {
   const { isLoading, data } = useQuery("PopMovies", moviesApi.PopMovies);
-  //데이터끊기
+
   const setScrollY = useSetRecoilState(scrolled);
   const handleScroll = (event) => {
     setScrollY(event.nativeEvent.contentOffset.y);
   };
   return (
     <ScrollView onScroll={handleScroll}>
-      <Slide Image={data} />
+      {data.map((movie) => (
+        <View key={movie.id}>
+          <BgImg
+            style={StyleSheet.absoluteFill}
+            source={{ uri: makeImgPath(movie.backdrop_path) }}
+          ></BgImg>
+        </View>
+      ))}
     </ScrollView>
   );
 };
