@@ -29,7 +29,7 @@ const HomeBox = styled.View`
   position: absolute;
   align-items: center;
   justify-content: center;
-  top: 400;
+  top: 400px;
 `;
 const HomeBox_Title = styled.Text`
   font-size: 32px;
@@ -54,11 +54,11 @@ const AnimatedBox = styled.View`
   background-color: #ff0558;
   padding: 11px 22px;
   border-radius: 6px;
-  bottom: -70;
+  bottom: -70px;
 `;
 const AnimatedBtn = Animated.createAnimatedComponent(AnimatedBox);
 
-const Begin = () => {
+const Begin = ({ navigation: { navigate } }) => {
   const { isLoading, data: PopMovies } = useQuery(
     "PopMovies",
     moviesApi.PopMovies
@@ -118,9 +118,9 @@ const Begin = () => {
           <Text style={{ color: "white", paddingVertical: 20 }}>
             영화, 드라마, 예능 등 10만 편의 작품
           </Text>
-          <HomeBox_Btn>
+          <HomeBox_Btn onPress={() => navigate("Login")}>
             <Text style={{ color: "white", fontSize: 15, fontWeight: "800" }}>
-              2주 무료 이용
+              로그인
             </Text>
           </HomeBox_Btn>
           <HomeBox_Title2 style={{ marginTop: SCREEN_HEIGHT / 2 }}>
@@ -145,7 +145,7 @@ const Begin = () => {
           </Text>
         </HomeBox>
       </ScrollView>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate("Login")}>
         <AnimatedBtn style={{ transform: [{ translateY: BtnY }] }}>
           <Text
             style={{
@@ -155,7 +155,7 @@ const Begin = () => {
               fontWeight: "800",
             }}
           >
-            2주 무료 이용
+            로그인
           </Text>
         </AnimatedBtn>
       </TouchableOpacity>
