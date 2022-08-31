@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { scrolled } from "../atom";
 import { Theme } from "../styled";
 import { Login } from "../screens/Login";
+import { Join } from "../screens/Join";
 
 const Nav = createNativeStackNavigator();
 const OutNav = () => {
@@ -38,6 +39,13 @@ const OutNav = () => {
         }}
         name="Login"
         component={Login}
+      />
+      <Nav.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Join"
+        component={Join}
       />
     </Nav.Navigator>
   );

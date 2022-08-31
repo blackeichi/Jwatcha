@@ -5,6 +5,7 @@ import OutNav from "./navigators/OutNav";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Theme } from "./styled";
+import InNav from "./navigators/InNav";
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function App() {
       <RecoilRoot>
         <ThemeProvider theme={Theme}>
           <NavigationContainer>
-            {isLoggedIn ? null : <OutNav />}
+            {isLoggedIn ? <InNav /> : <OutNav />}
           </NavigationContainer>
         </ThemeProvider>
       </RecoilRoot>

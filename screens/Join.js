@@ -1,88 +1,53 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import React, { useRef, useState } from "react";
+import auth from "@react-native-firebase/auth";
 import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import styled from "styled-components";
 import { Theme } from "../styled";
-import auth from "@react-native-firebase/auth";
+import {
+  CancelInput,
+  ErrorMessage,
+  GobackBtn,
+  InputBox,
+  JoinBtn,
+  JoinText,
+  Label,
+  LoginBtn,
+  LoginInput,
+  LoginText,
+} from "./Login";
 
-export const GobackBtn = styled.TouchableOpacity`
-  padding: 10px;
-`;
-export const InputBox = styled.View`
-  height: 85%;
-  justify-content: center;
-`;
-export const Label = styled.Text`
-  color: white;
-  font-size: 24px;
-  padding: 20px 15px;
-`;
-export const LoginInput = styled.TextInput`
-  padding: 10px 15px;
-  margin-right: 40px;
-  font-size: 20px;
-  color: white;
-`;
-export const CancelInput = styled.TouchableOpacity`
-  background-color: gray;
-  width: 22px;
-  height: 22px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-  position: absolute;
-  right: 10px;
-  top: 25%;
-`;
-export const LoginBtn = styled.TouchableOpacity`
-  position: absolute;
-  padding: 10px;
-  right: 0;
-`;
-export const ErrorMessage = styled.Text`
-  color: ${(props) => props.color};
-  padding: 0 15px;
-  font-size: 15px;
-`;
-export const LoginText = styled.Text`
-  color: ${(props) => props.color};
-  font-size: 20px;
-`;
-export const JoinBtn = styled.TouchableOpacity`
-  padding-left: 10px;
-  width: 200px;
-`;
-export const JoinText = styled.Text`
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 15px;
-  text-decoration: underline;
-`;
-
-export const Login = ({ navigation: { goBack, navigate } }) => {
+export const Join = ({ navigation: { goBack, navigate } }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const passwordInput = useRef();
+  const confirmPW = useRef();
   const onNext = () => {
     passwordInput.current.focus();
   };
-  const onSubmit = () => {
-    if (email === "" || password === "") {
+  const onNext2 = () => {
+    confirmPW.current.focus();
+  };
+  const onSubmit = async () => {
+    if (email === "" || password === "" || password2 === "") {
       return setError("내용을 입력하지 않으셨어요.");
     }
-    if (!email.includes("@")) {
-      return setError("이메일 형식이 옳바르지 않습니다.");
+    if (password !== password2) {
+      return setError("비밀번호가 일치하지 않습니다.");
     }
     if (loading) {
       return;
     }
     setLoading(true);
     try {
-      auth().signInWithEmailAndPassword(email, password);
+      await auth().createUserWithEmailAndPassword(email, password);
+      setError("");
     } catch (e) {
-      setError("로그인 정보가 옳바르지 않습니다.");
+      setError("해당 이메일/패스워드로 회원가입이 불가능합니다.");
     }
   };
   const ClearEmail = () => {
@@ -91,16 +56,22 @@ export const Login = ({ navigation: { goBack, navigate } }) => {
   const ClearPassword = () => {
     setPassword("");
   };
+  const ClearPassword2 = () => {
+    setPassword2("");
+  };
   return (
     <View style={{ flex: 1, backgroundColor: "black", paddingHorizontal: 10 }}>
       <GobackBtn onPress={() => goBack()}>
-        <FontAwesomeIcon size={25} style={{ color: "white" }} icon={faXmark} />
+        <FontAwesomeIcon
+          size={25}
+          style={{ color: "white" }}
+          icon={faArrowLeftLong}
+        />
       </GobackBtn>
       <InputBox>
-        <Label>로그인</Label>
+        <Label>회원가입</Label>
         <View style={{ position: "relative" }}>
           <LoginInput
-            autoFocus={true}
             placeholder="email@address.com"
             autoCapitalize="none"
             autoCorrect={false}
@@ -115,7 +86,6 @@ export const Login = ({ navigation: { goBack, navigate } }) => {
             <FontAwesomeIcon size={20} icon={faXmark} />
           </CancelInput>
         </View>
-
         <View style={{ position: "relative" }}>
           <LoginInput
             ref={passwordInput}
@@ -124,12 +94,27 @@ export const Login = ({ navigation: { goBack, navigate } }) => {
             secureTextEntry
             value={password}
             onChangeText={(text) => setPassword(text)}
+            returnKeyType="next"
+            onSubmitEditing={onNext2}
+            placeholderTextColor={"rgba(255,255,255,0.3)"}
+          />
+          <CancelInput onPress={ClearPassword}>
+            <FontAwesomeIcon size={20} icon={faXmark} />
+          </CancelInput>
+        </View>
+        <View style={{ position: "relative" }}>
+          <LoginInput
+            ref={confirmPW}
+            placeholder="비밀번호 재확인"
+            autoCapitalize="none"
+            secureTextEntry
+            value={password2}
+            onChangeText={(text) => setPassword2(text)}
             returnKeyType="done"
             placeholderTextColor={"rgba(255,255,255,0.3)"}
             onSubmitEditing={onSubmit}
-            style={{ marginTop: 15 }}
           />
-          <CancelInput onPress={ClearPassword} style={{ top: "59%" }}>
+          <CancelInput onPress={ClearPassword2}>
             <FontAwesomeIcon size={20} icon={faXmark} />
           </CancelInput>
         </View>
@@ -137,13 +122,11 @@ export const Login = ({ navigation: { goBack, navigate } }) => {
           <ErrorMessage color={Theme.pinkColor}>{error}</ErrorMessage>
         ) : null}
       </InputBox>
-      <LoginBtn>
-        <LoginText onPress={onSubmit} color={Theme.pinkColor}>
-          완료
-        </LoginText>
+      <LoginBtn onPress={onSubmit}>
+        <LoginText color={Theme.pinkColor}>가입하기</LoginText>
       </LoginBtn>
-      <JoinBtn onPress={() => navigate("Join")}>
-        <JoinText>회원가입하기</JoinText>
+      <JoinBtn onPress={() => navigate("Login")}>
+        <JoinText>이미 계정이 있으신가요?</JoinText>
       </JoinBtn>
     </View>
   );
