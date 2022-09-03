@@ -1,6 +1,13 @@
 import { BlurView } from "expo-blur";
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Swiper from "react-native-swiper";
 import { useQuery } from "react-query";
 import styled from "styled-components/native";
@@ -19,39 +26,39 @@ const Movies = () => {
     "TopMovies",
     moviesApi.TopMovies
   );
+  const loading = Toploading;
   return (
-    //<Container>
-    <Swiper
-      horizontal
-      loop
-      autoplay
-      autoplayTimeout={3.5}
-      showsButtons={false}
-      showsPagination={false}
-      containerStyle={{
-        marginBottom: 40,
-        width: "100%",
-        height: SCREEN_HEIGHT / 4,
-      }}
-    >
-      {Topdata?.results.map((movie) => (
-        <View key={movie.id} style={{ backgroundColor: "blue" }}></View>
-      ))}
-    </Swiper>
-    //</Container>
-    /*           {TopMovies?.results?.map((movie) => (
-            <>
-              <Text style={{ color: "white" }}>test</Text>
-              <Slide
-                key={movie.id}
-                backdropPath={movie.backdrop_path}
-                posterPath={movie.poster_path}
-                originalTitle={movie.original_title}
-                voteAverage={movie.vote_average}
-                overview={movie.overview}
-              />
-            </>
-          ))} */
+    <Container>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <Swiper
+          horizontal
+          loop
+          autoplay
+          autoplayTimeout={3.5}
+          showsButtons={false}
+          showsPagination={false}
+          containerStyle={{
+            marginBottom: 40,
+            width: "100%",
+            height: SCREEN_HEIGHT / 4,
+            backgroundColor: "white",
+          }}
+        >
+          {Topdata?.results?.map((movie) => (
+            <Slide
+              key={movie.id}
+              backdropPath={movie.backdrop_path}
+              posterPath={movie.poster_path}
+              originalTitle={movie.original_title}
+              voteAverage={movie.vote_average}
+              overview={movie.overview}
+            />
+          ))}
+        </Swiper>
+      )}
+    </Container>
   );
 };
 export default Movies;
