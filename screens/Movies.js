@@ -1,44 +1,57 @@
 import { BlurView } from "expo-blur";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
-import Swiper from "react-native-web-swiper";
+import Swiper from "react-native-swiper";
 import { useQuery } from "react-query";
 import styled from "styled-components/native";
 import { moviesApi } from "../api";
+import Slide from "../components/Slide";
 import { makeImgPath } from "../utils";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   background-color: black;
-`;
-const SwiperView = styled.View`
-  flex: 1;
-`;
-const Bgimg = styled.Image`
-  width: 100%;
-  height: 100%;
 `;
 
 const Movies = () => {
-  const { isLoading: PopLoading, data: PopMovies } = useQuery(
-    "PopMovies",
-    moviesApi.PopMovies
+  const { isLoading: Toploading, data: Topdata } = useQuery(
+    "TopMovies",
+    moviesApi.TopMovies
   );
   return (
-    <Container>
-      <Swiper
-        loop
-        timeout={3.5}
-        controlsEnabled={false}
-        containerStyle={{ width: "100%", height: SCREEN_HEIGHT / 4 }}
-      >
-        <SwiperView style={{ backgroundColor: "red" }}></SwiperView>
-        <SwiperView style={{ backgroundColor: "blue" }}></SwiperView>
-        <SwiperView style={{ backgroundColor: "red" }}></SwiperView>
-        <SwiperView style={{ backgroundColor: "blue" }}></SwiperView>
-      </Swiper>
-    </Container>
+    //<Container>
+    <Swiper
+      horizontal
+      loop
+      autoplay
+      autoplayTimeout={3.5}
+      showsButtons={false}
+      showsPagination={false}
+      containerStyle={{
+        marginBottom: 40,
+        width: "100%",
+        height: SCREEN_HEIGHT / 4,
+      }}
+    >
+      {Topdata?.results.map((movie) => (
+        <View key={movie.id} style={{ backgroundColor: "blue" }}></View>
+      ))}
+    </Swiper>
+    //</Container>
+    /*           {TopMovies?.results?.map((movie) => (
+            <>
+              <Text style={{ color: "white" }}>test</Text>
+              <Slide
+                key={movie.id}
+                backdropPath={movie.backdrop_path}
+                posterPath={movie.poster_path}
+                originalTitle={movie.original_title}
+                voteAverage={movie.vote_average}
+                overview={movie.overview}
+              />
+            </>
+          ))} */
   );
 };
 export default Movies;

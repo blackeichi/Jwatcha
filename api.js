@@ -5,5 +5,10 @@ const PopMovies = async () => {
     `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=KR&page=1`
   ).then((response) => response.json());
 };
+const TopMovies = async () => {
+  return await fetch(
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=KR&page=1`
+  ).then((response) => response.json());
+};
 
-export const moviesApi = { PopMovies };
+export const moviesApi = { PopMovies, TopMovies };
