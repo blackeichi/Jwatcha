@@ -41,7 +41,7 @@ const Tvs = () => {
     setRefreshing(false);
   };
   return loading ? (
-    <ActivityIndicator />
+    <ActivityIndicator style={{ marginTop: 30, marginBottom: 30 }} />
   ) : (
     <FlatList
       onRefresh={onRefresh}

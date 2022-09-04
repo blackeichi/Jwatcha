@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import { useQuery } from "react-query";
 import styled from "styled-components/native";
 import { moviesApi, TvApi } from "../api";
+import Row from "../components/Row";
 
 const Container = styled.ScrollView`
   background-color: black;
@@ -15,10 +16,22 @@ const SearchBar = styled.TextInput`
   width: 90%;
   margin: 10px auto;
 `;
+const Title = styled.Text`
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 20px;
+  padding: 0 20px;
+`;
+const Title2 = styled(Title)`
+  margin-bottom: 10px;
+`;
 
 const Search = () => {
   const [query, setQuery] = useState("");
-  const onChangeText = (text) => setQuery(text);
+  const onChangeText = (text) => {
+    setQuery(text);
+  };
   const {
     isLoading: moviesLoading,
     data: moviesData,
@@ -29,8 +42,8 @@ const Search = () => {
   const {
     isLoading: tvLoading,
     data: tvData,
-    refetch: searchTv,
-  } = useQuery(["searchTv", query], TvApi.searchTv, {
+    refetch: searchTvs,
+  } = useQuery(["searchTvs", query], TvApi.searchTv, {
     enabled: false,
   });
   const onSubmit = () => {
@@ -38,7 +51,7 @@ const Search = () => {
       return;
     }
     searchMovies();
-    searchTv();
+    searchTvs();
   };
   return (
     <Container>
@@ -49,12 +62,63 @@ const Search = () => {
         onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
       />
-      {moviesLoading || tvLoading ? <ActivityIndicator /> : null}
-      {moviesData ? (
-        <HList title="Movie Results" data={moviesData.results} />
+      {moviesLoading || tvLoading ? (
+        <ActivityIndicator style={{ marginTop: 30, marginBottom: 30 }} />
       ) : null}
-      {tvData ? <HList title="TV Results" data={tvData.results} /> : null}
+      {moviesData || tvData ? (
+        <View style={{ alignItems: "center" }}>
+          <Title>"{query}" 검색 결과</Title>
+        </View>
+      ) : null}
+
+      {moviesData ? (
+        <>
+          <Title2>영화</Title2>
+          <FlatList
+            data={moviesData.results}
+            horizontal
+            contentContainerStyle={{
+              paddingHorizontal: 20,
+            }}
+            ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+            showsHorizontalScrollIndicator={true}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Row
+                posterPath={item.poster_path}
+                originalTitle={item.original_title}
+                voteAverage={item.vote_average}
+              />
+            )}
+          />
+        </>
+      ) : null}
+
+      {tvData ? (
+        <>
+          <Title2>TV프로그램</Title2>
+          <FlatList
+            data={tvData.results}
+            horizontal
+            contentContainerStyle={{
+              paddingHorizontal: 20,
+            }}
+            ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+            showsHorizontalScrollIndicator={true}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Row
+                posterPath={item.poster_path}
+                originalTitle={item.original_name}
+                voteAverage={item.vote_average}
+              />
+            )}
+          />
+        </>
+      ) : null}
     </Container>
   );
 };
 export default Search;
+//배우검색하기
+//detail

@@ -30,8 +30,8 @@ const Row = ({ posterPath, originalTitle, voteAverage }) => {
     <ContentBox onPress={goToDetail}>
       <ContentImg source={{ uri: makeImgPath(posterPath) }}></ContentImg>
       <ContentTitle>
-        {originalTitle.slice(0, 10)}
-        {originalTitle.length > 11 ? "..." : null}
+        {originalTitle?.slice(0, 10)}
+        {originalTitle?.length > 11 ? "..." : null}
       </ContentTitle>
       <ContentRating>
         {voteAverage > 0 ? `⭐️ ${voteAverage}/10` : `Coming soon`}

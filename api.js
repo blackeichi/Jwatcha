@@ -20,7 +20,7 @@ const UpcomingMovies = async () => {
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
   ).then((response) => response.json());
 };
-const searchMovie = async ({ queryText }) => {
+const searchMovie = async ({ queryKey }) => {
   const [_, query] = queryKey;
   return fetch(
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${query}`
@@ -55,7 +55,7 @@ const PopTv = async () => {
     `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1&region=KR`
   ).then((response) => response.json());
 };
-const searchTv = async ({ queryText }) => {
+const searchTv = async ({ queryKey }) => {
   const [_, query] = queryKey;
   return fetch(
     `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&language=en-US&page=1&query=${query}`
