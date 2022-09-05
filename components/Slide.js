@@ -45,10 +45,11 @@ const Slide = ({
   originalTitle,
   voteAverage,
   overview,
+  fullData,
 }) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate("Detail");
+    navigation.navigate("Detail", { params: { ...fullData } });
   };
   return (
     <SwiperView>

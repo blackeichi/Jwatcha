@@ -21,10 +21,10 @@ const ContentRating = styled.Text`
   color: white;
 `;
 
-const Row = ({ posterPath, originalTitle, voteAverage }) => {
+const Row = ({ posterPath, originalTitle, voteAverage, fullData }) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate("Detail");
+    navigation.navigate("Detail", { params: { ...fullData } });
   };
   return (
     <ContentBox onPress={goToDetail}>

@@ -12,7 +12,16 @@ const InNav = () => (
       name="InfoScreen"
       component={InfoScreen}
     />
-    <nav.Screen name="Detail" component={Detail} />
+    <nav.Screen
+      options={{
+        headerStyle: { backgroundColor: "black" },
+        headerTitleAlign: "center",
+        headerTitleStyle: { color: "white" },
+        headerBackTitleStyle: { color: "white" },
+      }}
+      name="Detail"
+      component={Detail}
+    />
   </nav.Navigator>
 );
 export default InNav;

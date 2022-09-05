@@ -27,10 +27,16 @@ const Release = styled.Text`
 const Overview = styled.Text`
   color: white;
 `;
-const Column = ({ posterPath, originalTitle, releaseDate, overview }) => {
+const Column = ({
+  posterPath,
+  originalTitle,
+  releaseDate,
+  overview,
+  fullData,
+}) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate("Detail");
+    navigation.navigate("Detail", { params: { ...fullData } });
   };
   return (
     <Layout onPress={goToDetail}>
