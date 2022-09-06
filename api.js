@@ -12,7 +12,7 @@ const TopMovies = async () => {
 };
 const NowPlayingMovies = async () => {
   return await fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=KR&page=1&region=KR`
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1&region=KR`
   ).then((response) => response.json());
 };
 const UpcomingMovies = async () => {
@@ -26,6 +26,12 @@ const searchMovie = async ({ queryKey }) => {
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${query}`
   ).then((res) => res.json());
 };
+const detailMovie = async ({ queryKey }) => {
+  const [_, id] = queryKey;
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images`
+  ).then((res) => res.json());
+};
 
 export const moviesApi = {
   PopMovies,
@@ -33,6 +39,7 @@ export const moviesApi = {
   NowPlayingMovies,
   UpcomingMovies,
   searchMovie,
+  detailMovie,
 };
 
 const latestTv = async () => {
@@ -61,4 +68,10 @@ const searchTv = async ({ queryKey }) => {
     `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&language=en-US&page=1&query=${query}`
   ).then((res) => res.json());
 };
-export const TvApi = { latestTv, PopTv, onAirTv, TopTv, searchTv };
+const detailTv = async ({ queryKey }) => {
+  const [_, id] = queryKey;
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&append_to_response=videos,images`
+  ).then((res) => res.json());
+};
+export const TvApi = { latestTv, PopTv, onAirTv, TopTv, searchTv, detailTv };

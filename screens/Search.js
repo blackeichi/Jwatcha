@@ -88,6 +88,7 @@ const Search = () => {
                 posterPath={item.poster_path}
                 originalTitle={item.original_title}
                 voteAverage={item.vote_average}
+                fullData={item}
               />
             )}
           />
@@ -111,6 +112,7 @@ const Search = () => {
                 posterPath={item.poster_path}
                 originalTitle={item.original_name}
                 voteAverage={item.vote_average}
+                fullData={item}
               />
             )}
           />

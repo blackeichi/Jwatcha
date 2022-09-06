@@ -64,6 +64,7 @@ const Tvs = () => {
                 posterPath={item.poster_path}
                 originalTitle={item.original_name}
                 voteAverage={item.vote_average}
+                fullData={item}
               />
             )}
           />
@@ -82,6 +83,7 @@ const Tvs = () => {
                 posterPath={item.poster_path}
                 originalTitle={item.original_name}
                 voteAverage={item.vote_average}
+                fullData={item}
               />
             )}
           />
@@ -100,6 +102,7 @@ const Tvs = () => {
                 posterPath={item.poster_path}
                 originalTitle={item.original_name}
                 voteAverage={item.vote_average}
+                fullData={item}
               />
             )}
           />
@@ -118,6 +121,7 @@ const Tvs = () => {
                 posterPath={item.poster_path}
                 originalTitle={item.original_name}
                 voteAverage={item.vote_average}
+                fullData={item}
               />
             )}
           />
