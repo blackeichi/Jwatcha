@@ -13,6 +13,7 @@ import {
   faVideoCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components/native";
+import React from "react";
 
 const nav = createBottomTabNavigator();
 
@@ -35,80 +36,74 @@ const InfoScreen = () => {
     ]);
   };
   return (
-    <>
-      <nav.Navigator
-        screenOptions={{
-          unmountOnBlur: true,
-          tabBarStyle: {
-            backgroundColor: "black",
-          },
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "gray",
-          tabBarLabelStyle: {
-            fontSize: 12,
-            fontWeight: "700",
-          },
-          headerStyle: {
-            backgroundColor: "black",
-            height: 50,
-          },
-          headerTitleStyle: {
-            color: "white",
-          },
-          headerRight: () => (
-            <>
-              <HeaderBtn onPress={onClickBtn}>
-                <FontAwesomeIcon
-                  size={20}
-                  icon={faRightToBracket}
-                  style={{ color: "white" }}
-                />
-              </HeaderBtn>
-            </>
+    <nav.Navigator
+      screenOptions={{
+        unmountOnBlur: true,
+        tabBarStyle: {
+          backgroundColor: "black",
+        },
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "gray",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "700",
+        },
+        headerStyle: {
+          backgroundColor: "black",
+          height: 50,
+        },
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerRight: () => (
+          <>
+            <HeaderBtn onPress={onClickBtn}>
+              <FontAwesomeIcon
+                size={20}
+                icon={faRightToBracket}
+                style={{ color: "white" }}
+              />
+            </HeaderBtn>
+          </>
+        ),
+      }}
+    >
+      <nav.Screen
+        name="영화"
+        component={Movies}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon
+              icon={faVideoCamera}
+              size={size}
+              style={{ color: color }}
+            />
           ),
         }}
-      >
-        <nav.Screen
-          name="영화"
-          component={Movies}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesomeIcon
-                icon={faVideoCamera}
-                size={size}
-                style={{ color: color }}
-              />
-            ),
-          }}
-        />
-        <nav.Screen
-          name="TV프로그램"
-          component={Tvs}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesomeIcon
-                icon={faTv}
-                size={size}
-                style={{ color: color }}
-              />
-            ),
-          }}
-        />
-        <nav.Screen
-          name="검색"
-          component={Search}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesomeIcon
-                icon={faSearch}
-                size={size}
-                style={{ color: color }}
-              />
-            ),
-          }}
-        />
-      </nav.Navigator>
-    </>
+      />
+      <nav.Screen
+        name="TV프로그램"
+        component={Tvs}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faTv} size={size} style={{ color: color }} />
+          ),
+        }}
+      />
+      <nav.Screen
+        name="검색"
+        component={Search}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon
+              icon={faSearch}
+              size={size}
+              style={{ color: color }}
+            />
+          ),
+        }}
+      />
+    </nav.Navigator>
   );
 };
 

@@ -1,12 +1,16 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import react from "react";
+import React from "react";
 import Detail from "../screens/Detail";
 import InfoScreen from "./InfoScreen";
 
 const nav = createNativeStackNavigator();
 
 const InNav = () => (
-  <nav.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+  <nav.Navigator
+    screenOptions={{
+      headerBackTitleVisible: false,
+    }}
+  >
     <nav.Screen
       options={{ headerShown: false }}
       name="InfoScreen"
@@ -17,7 +21,7 @@ const InNav = () => (
         headerStyle: { backgroundColor: "black" },
         headerTitleAlign: "center",
         headerTitleStyle: { color: "white" },
-        headerBackTitleStyle: { color: "white" },
+        headerTintColor: "white",
       }}
       name="Detail"
       component={Detail}
